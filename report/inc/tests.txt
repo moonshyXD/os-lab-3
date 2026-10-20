@@ -1,0 +1,48 @@
+gcc -Isrc -D_POSIX_C_SOURCE=200809L -std=c11 -O2 -Wall -Wextra -Wpedantic -Werror src/main.c src/matrix.c src/filter.c src/console.c -pthread -lm -o convolution
+gcc -Isrc -D_POSIX_C_SOURCE=200809L -std=c11 -O2 -Wall -Wextra -Wpedantic -Werror src/main.c src/matrix.c src/filter.c src/console.c tests/thread_failures.c -pthread -lm -Wl,--wrap=pthread_create -Wl,--wrap=pthread_join -o convolution-fail
+python3 tests/style.py
+console.c: skip_space: 3 lines
+console.c: parse_size: 12 lines
+console.c: at_end: 4 lines
+console.c: read_line: 10 lines
+console.c: read_dimensions: 11 lines
+console.c: read_size: 11 lines
+console.c: parse_row: 14 lines
+console.c: read_matrix: 16 lines
+console.c: parse_options: 25 lines
+console.c: read_input: 18 lines
+console.c: read_problem: 9 lines
+console.c: print_matrix: 10 lines
+filter.c: run_rows: 6 lines
+filter.c: join_workers: 12 lines
+filter.c: start_workers: 15 lines
+filter.c: run_pass: 25 lines
+filter.c: apply_filter: 22 lines
+main.c: ignore_sigpipe: 9 lines
+main.c: process_problem: 27 lines
+main.c: main: 13 lines
+matrix.c: matrix_create: 14 lines
+matrix.c: convolve_rows: 22 lines
+thread_failures.c: __wrap_pthread_create: 7 lines
+thread_failures.c: __wrap_pthread_join: 6 lines
+PASS: no goto; C/Python functions <=40 lines; main <=20 lines
+python3 tests/check.py
+test_asymmetric_kernel_is_convolution (__main__.FilterTests.test_asymmetric_kernel_is_convolution) ... ok
+test_asymmetric_shift_has_known_answer (__main__.FilterTests.test_asymmetric_shift_has_known_answer) ... ok
+test_computation_overflow (__main__.FilterTests.test_computation_overflow) ... ok
+test_default_threads_and_help (__main__.FilterTests.test_default_threads_and_help) ... ok
+test_identity_and_many_passes (__main__.FilterTests.test_identity_and_many_passes) ... ok
+test_interactive_retry (__main__.FilterTests.test_interactive_retry) ... ok
+test_invalid_data (__main__.FilterTests.test_invalid_data) ... ok
+test_invalid_options (__main__.FilterTests.test_invalid_options) ... ok
+test_kernel_larger_than_matrix (__main__.FilterTests.test_kernel_larger_than_matrix) ... ok
+test_output_failure (__main__.FilterTests.test_output_failure) ... ok
+test_sample (__main__.FilterTests.test_sample) ... ok
+test_subnormal_input_is_preserved (__main__.FilterTests.test_subnormal_input_is_preserved) ... ok
+test_thread_creation_and_join_failures (__main__.FilterTests.test_thread_creation_and_join_failures) ... ok
+test_uneven_rows_and_fractional_values (__main__.FilterTests.test_uneven_rows_and_fractional_values) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.323s
+
+OK

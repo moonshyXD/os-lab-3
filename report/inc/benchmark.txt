@@ -1,0 +1,16 @@
+python3 tests/benchmark.py
+Benchmark 128x128: warmup + 5 repeats, outputs match
+Benchmark 512x512: warmup + 5 repeats, outputs match
+Benchmark 1024x1024: warmup + 5 repeats, outputs match
+ 128 P=1 T=0.004426 S=1.000 E=1.000
+ 128 P=2 T=0.006388 S=0.693 E=0.346
+ 128 P=4 T=0.005266 S=0.841 E=0.210
+ 128 P=8 T=0.012011 S=0.369 E=0.046
+ 512 P=1 T=0.085485 S=1.000 E=1.000
+ 512 P=2 T=0.046361 S=1.844 E=0.922
+ 512 P=4 T=0.036125 S=2.366 E=0.592
+ 512 P=8 T=0.030133 S=2.837 E=0.355
+1024 P=1 T=0.367781 S=1.000 E=1.000
+1024 P=2 T=0.182731 S=2.013 E=1.006
+1024 P=4 T=0.104670 S=3.514 E=0.878
+1024 P=8 T=0.086599 S=4.247 E=0.531

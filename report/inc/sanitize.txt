@@ -1,0 +1,21 @@
+gcc -Isrc -D_POSIX_C_SOURCE=200809L -std=c11 -O1 -g -Wall -Wextra -Wpedantic -Werror -fsanitize=address,undefined -fno-omit-frame-pointer src/main.c src/matrix.c src/filter.c src/console.c -pthread -lm -o convolution-sanitize
+ASAN_OPTIONS=detect_leaks=1 python3 tests/check.py ./convolution-sanitize
+test_asymmetric_kernel_is_convolution (__main__.FilterTests.test_asymmetric_kernel_is_convolution) ... ok
+test_asymmetric_shift_has_known_answer (__main__.FilterTests.test_asymmetric_shift_has_known_answer) ... ok
+test_computation_overflow (__main__.FilterTests.test_computation_overflow) ... ok
+test_default_threads_and_help (__main__.FilterTests.test_default_threads_and_help) ... ok
+test_identity_and_many_passes (__main__.FilterTests.test_identity_and_many_passes) ... ok
+test_interactive_retry (__main__.FilterTests.test_interactive_retry) ... ok
+test_invalid_data (__main__.FilterTests.test_invalid_data) ... ok
+test_invalid_options (__main__.FilterTests.test_invalid_options) ... ok
+test_kernel_larger_than_matrix (__main__.FilterTests.test_kernel_larger_than_matrix) ... ok
+test_output_failure (__main__.FilterTests.test_output_failure) ... ok
+test_sample (__main__.FilterTests.test_sample) ... ok
+test_subnormal_input_is_preserved (__main__.FilterTests.test_subnormal_input_is_preserved) ... ok
+test_thread_creation_and_join_failures (__main__.FilterTests.test_thread_creation_and_join_failures) ... ok
+test_uneven_rows_and_fractional_values (__main__.FilterTests.test_uneven_rows_and_fractional_values) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 1.153s
+
+OK

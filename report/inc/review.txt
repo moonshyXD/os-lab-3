@@ -1,0 +1,8 @@
+Independent review — final version 3, 2026-10-20
+Verdict: PASS.
+Scope: all C source and headers, tests, Makefile, input/CLI contract, decomposition, concurrent row ownership and cleanup.
+Findings: initial finite subnormal input rejection fixed and covered by exact test. Final four-module structure has coherent short functions, no goto; main is 13 lines. Worker row ranges do not overlap; successfully started workers are joined before free or buffer swap, including creation failures. Input buffers and matrices are released on normal return paths. No remaining confirmed defects found.
+Evidence reviewed: make test (14 methods), ASan/UBSan, style log (24 C functions), OS thread observations and benchmark methodology.
+Limits: reviewer was read-only and did not execute tests independently. Function-length checker is adequate for current simple C syntax, not a universal parser. ps observations are periodic snapshots, not continuous tracing.
+
+Final readability stage: independent PASS after uniform explicit braces and static is_filter_input_valid extraction. All25 current C functions were checked; main20 lines, max31, no goto. Semantic regression checks rerun in report/inc/checks.txt. H10 harness pilot results are internal evidence and excluded from the lab repository.

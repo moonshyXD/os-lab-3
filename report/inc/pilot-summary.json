@@ -1,0 +1,110 @@
+[
+  {
+    "size": 128,
+    "threads": 1,
+    "seconds": 0.00283069,
+    "minimum": 0.001761724,
+    "maximum": 0.002840493,
+    "speedup": 1.0,
+    "efficiency": 1.0
+  },
+  {
+    "size": 128,
+    "threads": 2,
+    "seconds": 0.004179962,
+    "minimum": 0.002746786,
+    "maximum": 0.00463548,
+    "speedup": 0.677204720999856,
+    "efficiency": 0.338602360499928
+  },
+  {
+    "size": 128,
+    "threads": 4,
+    "seconds": 0.003374312,
+    "minimum": 0.002824919,
+    "maximum": 0.00347115,
+    "speedup": 0.8388939730528772,
+    "efficiency": 0.2097234932632193
+  },
+  {
+    "size": 128,
+    "threads": 8,
+    "seconds": 0.005791491,
+    "minimum": 0.004186942,
+    "maximum": 0.006307729,
+    "speedup": 0.48876705497772505,
+    "efficiency": 0.06109588187221563
+  },
+  {
+    "size": 512,
+    "threads": 1,
+    "seconds": 0.02685351,
+    "minimum": 0.021128288,
+    "maximum": 0.027411857,
+    "speedup": 1.0,
+    "efficiency": 1.0
+  },
+  {
+    "size": 512,
+    "threads": 2,
+    "seconds": 0.014728123,
+    "minimum": 0.013718767,
+    "maximum": 0.016164608,
+    "speedup": 1.8232812151283637,
+    "efficiency": 0.9116406075641819
+  },
+  {
+    "size": 512,
+    "threads": 4,
+    "seconds": 0.012841956,
+    "minimum": 0.011993333,
+    "maximum": 0.01445523,
+    "speedup": 2.091076312673864,
+    "efficiency": 0.522769078168466
+  },
+  {
+    "size": 512,
+    "threads": 8,
+    "seconds": 0.010614683,
+    "minimum": 0.010286834,
+    "maximum": 0.010763346,
+    "speedup": 2.5298456863949683,
+    "efficiency": 0.31623071079937104
+  },
+  {
+    "size": 1024,
+    "threads": 1,
+    "seconds": 0.104493362,
+    "minimum": 0.078580815,
+    "maximum": 0.108039208,
+    "speedup": 1.0,
+    "efficiency": 1.0
+  },
+  {
+    "size": 1024,
+    "threads": 2,
+    "seconds": 0.049232922,
+    "minimum": 0.044445481,
+    "maximum": 0.052571227,
+    "speedup": 2.122428605801622,
+    "efficiency": 1.061214302900811
+  },
+  {
+    "size": 1024,
+    "threads": 4,
+    "seconds": 0.04473851,
+    "minimum": 0.039390638,
+    "maximum": 0.047111408,
+    "speedup": 2.3356468957057355,
+    "efficiency": 0.5839117239264339
+  },
+  {
+    "size": 1024,
+    "threads": 8,
+    "seconds": 0.030889959,
+    "minimum": 0.02811656,
+    "maximum": 0.039237031,
+    "speedup": 3.382761433901547,
+    "efficiency": 0.4228451792376934
+  }
+]

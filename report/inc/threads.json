@@ -1,0 +1,34 @@
+[
+  {
+    "rows": 512,
+    "cols": 512,
+    "limit": 1,
+    "peak": 1,
+    "ps": "    PID     TID NLWP STAT COMMAND\n  16172   16172    1 R+   convolution\n",
+    "diagnostic": "pid=16172 thread_limit=1 threads=1\nelapsed_seconds=0.096789588\n"
+  },
+  {
+    "rows": 512,
+    "cols": 512,
+    "limit": 2,
+    "peak": 2,
+    "ps": "    PID     TID NLWP STAT COMMAND\n  16182   16182    2 Rl+  convolution\n  16182   16184    2 Rl+  convolution\n",
+    "diagnostic": "pid=16182 thread_limit=2 threads=2\nelapsed_seconds=0.047363944\n"
+  },
+  {
+    "rows": 512,
+    "cols": 512,
+    "limit": 4,
+    "peak": 4,
+    "ps": "    PID     TID NLWP STAT COMMAND\n  16202   16202    4 Rl+  convolution\n  16202   16204    4 Rl+  convolution\n  16202   16205    4 Rl+  convolution\n  16202   16206    4 Rl+  convolution\n",
+    "diagnostic": "pid=16202 thread_limit=4 threads=4\nelapsed_seconds=0.033212909\n"
+  },
+  {
+    "rows": 2,
+    "cols": 262144,
+    "limit": 8,
+    "peak": 2,
+    "ps": "    PID     TID NLWP STAT COMMAND\n  16245   16245    2 Rl+  convolution\n  16245   16259    2 Rl+  convolution\n",
+    "diagnostic": "pid=16245 thread_limit=8 threads=2\nelapsed_seconds=0.061459895\n"
+  }
+]

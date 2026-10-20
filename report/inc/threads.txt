@@ -1,0 +1,18 @@
+rows=512 requested=1 peak=1
+    PID     TID NLWP STAT COMMAND
+  16172   16172    1 R+   convolution
+rows=512 requested=2 peak=2
+    PID     TID NLWP STAT COMMAND
+  16182   16182    2 Rl+  convolution
+  16182   16184    2 Rl+  convolution
+rows=512 requested=4 peak=4
+    PID     TID NLWP STAT COMMAND
+  16202   16202    4 Rl+  convolution
+  16202   16204    4 Rl+  convolution
+  16202   16205    4 Rl+  convolution
+  16202   16206    4 Rl+  convolution
+rows=2 requested=8 peak=2
+    PID     TID NLWP STAT COMMAND
+  16245   16245    2 Rl+  convolution
+  16245   16259    2 Rl+  convolution
+strace: 6 successful worker creations for 2 passes at P=4

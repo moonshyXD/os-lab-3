@@ -1,0 +1,25 @@
+16280 clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x75bdc31ff990, parent_tid=0x75bdc31ff990, exit_signal=0, stack=0x75bdc29ff000, stack_size=0x7fff80, tls=0x75bdc31ff6c0} => {parent_tid=[16281]}, 88) = 16281
+16280 clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x75bdc29fe990, parent_tid=0x75bdc29fe990, exit_signal=0, stack=0x75bdc21fe000, stack_size=0x7fff80, tls=0x75bdc29fe6c0} <unfinished ...>
+16281 exit(0)                           = ?
+16280 <... clone3 resumed> => {parent_tid=[16282]}, 88) = 16282
+16281 +++ exited with 0 +++
+16280 clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x75bdc21fd990, parent_tid=0x75bdc21fd990, exit_signal=0, stack=0x75bdc19fd000, stack_size=0x7fff80, tls=0x75bdc21fd6c0} <unfinished ...>
+16282 exit(0 <unfinished ...>
+16280 <... clone3 resumed> => {parent_tid=[16283]}, 88) = 16283
+16282 <... exit resumed>)               = ?
+16282 +++ exited with 0 +++
+16283 exit(0)                           = ?
+16283 +++ exited with 0 +++
+16280 clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x75bdc21fd990, parent_tid=0x75bdc21fd990, exit_signal=0, stack=0x75bdc19fd000, stack_size=0x7fff80, tls=0x75bdc21fd6c0} => {parent_tid=[16284]}, 88) = 16284
+16280 clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x75bdc29fe990, parent_tid=0x75bdc29fe990, exit_signal=0, stack=0x75bdc21fe000, stack_size=0x7fff80, tls=0x75bdc29fe6c0} => {parent_tid=[16285]}, 88) = 16285
+16284 exit(0 <unfinished ...>
+16280 clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x75bdc31ff990, parent_tid=0x75bdc31ff990, exit_signal=0, stack=0x75bdc29ff000, stack_size=0x7fff80, tls=0x75bdc31ff6c0} <unfinished ...>
+16284 <... exit resumed>)               = ?
+16280 <... clone3 resumed> => {parent_tid=[16286]}, 88) = 16286
+16284 +++ exited with 0 +++
+16285 exit(0)                           = ?
+16285 +++ exited with 0 +++
+16286 exit(0)                           = ?
+16286 +++ exited with 0 +++
+16280 exit_group(0)                     = ?
+16280 +++ exited with 0 +++
