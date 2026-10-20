@@ -41,7 +41,7 @@ test_thread_creation_and_join_failures (__main__.FilterTests.test_thread_creatio
 test_uneven_rows_and_fractional_values (__main__.FilterTests.test_uneven_rows_and_fractional_values) ... ok
 
 ----------------------------------------------------------------------
-Ran 14 tests in 0.685s
+Ran 14 tests in 0.367s
 
 OK
 test_asymmetric_kernel_is_convolution (__main__.FilterTests.test_asymmetric_kernel_is_convolution) ... ok
@@ -60,6 +60,6 @@ test_thread_creation_and_join_failures (__main__.FilterTests.test_thread_creatio
 test_uneven_rows_and_fractional_values (__main__.FilterTests.test_uneven_rows_and_fractional_values) ... ok
 
 ----------------------------------------------------------------------
-Ran 14 tests in 1.740s
+Ran 14 tests in 1.450s
 
 OK

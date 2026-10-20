@@ -5,6 +5,6 @@ convolution: src/*.c src/*.h
 	$(CC) $(CFLAGS) src/*.c -o convolution -pthread -lm
 
 clean:
-	rm -f convolution convolution-fail convolution-sanitize
+	rm -f convolution
 
 .PHONY: clean

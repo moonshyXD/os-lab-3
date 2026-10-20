@@ -1,0 +1,4 @@
+PASS identity: output matches, elapsed_seconds=0.000369461
+PASS shift: output matches, elapsed_seconds=0.000207400
+PASS invalid input: handled failure without output
+PASS source structure: 24 C functions, main=20, max=31; no goto; tests absent

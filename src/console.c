@@ -148,7 +148,7 @@ int parse_options(int argc, char **argv, size_t *threads) {
              "  число проходов K\n"
              "Размеры и K положительные; числа конечные, дробная часть через точку.\n"
              "За границами матрицы нули. Ядро переворачивается (свёртка).\n"
-             "Можно перенаправить ввод: ./convolution --threads 4 < examples/input.txt");
+             "Можно перенаправить ввод: ./convolution --threads 4 < input.txt");
         return 1;
     }
     *threads = 1;

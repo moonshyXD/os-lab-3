@@ -15,24 +15,31 @@ static int ignore_sigpipe(void) {
     return 0;
 }
 
+static double monotonic_seconds(void) {
+    struct timespec now;
+    if (clock_gettime(CLOCK_MONOTONIC, &now) == -1) {
+        perror("clock_gettime");
+        return -1.0;
+    }
+    return (double)now.tv_sec + (double)now.tv_nsec / 1e9;
+}
+
 static int process_problem(Matrix *matrix, const Matrix *kernel, size_t iterations, size_t limit) {
     size_t threads = limit < matrix->rows ? limit : matrix->rows;
     fprintf(stderr, "pid=%ld thread_limit=%zu threads=%zu\n", (long)getpid(), limit, threads);
-    struct timespec start, finish;
-    if (clock_gettime(CLOCK_MONOTONIC, &start) == -1) {
-        perror("clock_gettime");
+    double start = monotonic_seconds();
+    if (start < 0) {
         return -1;
     }
     if (apply_filter(matrix, kernel, iterations, threads) == -1) {
         perror("Фильтрация");
         return -1;
     }
-    if (clock_gettime(CLOCK_MONOTONIC, &finish) == -1) {
-        perror("clock_gettime");
+    double finish = monotonic_seconds();
+    if (finish < 0) {
         return -1;
     }
-    double elapsed =
-        (double)(finish.tv_sec - start.tv_sec) + (double)(finish.tv_nsec - start.tv_nsec) / 1e9;
+    double elapsed = finish - start;
     fprintf(stderr, "elapsed_seconds=%.9f\n", elapsed);
     if (print_matrix(matrix) == -1) {
         perror("Вывод матрицы");
