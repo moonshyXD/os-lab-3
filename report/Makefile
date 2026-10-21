@@ -1,8 +1,11 @@
+LATEX ?= xelatex
+FLAGS = -interaction=nonstopmode -halt-on-error
+
 all: report.pdf
 
-report.pdf: report.tex preamble.tex titlepage.tex $(wildcard inc/*) $(shell find ../src -name '*.c' -o -name '*.h')
-	xelatex -interaction=nonstopmode -halt-on-error report.tex
-	xelatex -interaction=nonstopmode -halt-on-error report.tex
+report.pdf: report.tex preamble.tex titlepage.tex $(wildcard inc/* ../src/*.c ../src/*.h) ../Makefile
+	$(LATEX) $(FLAGS) report.tex
+	$(LATEX) $(FLAGS) report.tex
 
 clean:
 	rm -f *.aux *.log *.out *.lol *.toc *.fls *.fdb_latexmk *.synctex.gz
