@@ -29,8 +29,13 @@ static int parse_size(char **cursor, size_t *value) {
     errno = 0;
     char *end;
     uintmax_t parsed = strtoumax(*cursor, &end, 10);
-    if (errno != 0 || parsed == 0 || parsed > SIZE_MAX ||
-        (*end != '\0' && !isspace((unsigned char)*end))) {
+    if (errno != 0) {
+        return -1;
+    }
+    if (parsed == 0 || parsed > SIZE_MAX) {
+        return -1;
+    }
+    if (*end != '\0' && !isspace((unsigned char)*end)) {
         return -1;
     }
     *cursor = end;
@@ -95,9 +100,16 @@ static int parse_row(char *cursor, double *values, size_t count) {
         errno = 0;
         char *end;
         double value = strtod(cursor, &end);
-        if (end == cursor || !isfinite(value) ||
-            (errno != 0 && (errno != ERANGE || value == 0.0)) ||
-            (*end != '\0' && !isspace((unsigned char)*end))) {
+        if (end == cursor || !isfinite(value)) {
+            return -1;
+        }
+        if (errno != 0 && errno != ERANGE) {
+            return -1;
+        }
+        if (errno == ERANGE && value == 0.0) {
+            return -1;
+        }
+        if (*end != '\0' && !isspace((unsigned char)*end)) {
             return -1;
         }
         values[i] = value;
