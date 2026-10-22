@@ -2,6 +2,7 @@
 #include <ctype.h>
 #include <errno.h>
 #include <inttypes.h>
+#include <limits.h>
 #include <math.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -15,32 +16,48 @@ typedef struct {
     int interactive;
 } Reader;
 
+typedef enum {
+    INPUT_VALID,
+    INPUT_INVALID,
+    INPUT_TOO_LARGE
+} InputResult;
+
 static void skip_space(char **cursor) {
     while (isspace((unsigned char)**cursor)) {
         ++*cursor;
     }
 }
 
-static int parse_size(char **cursor, size_t *value) {
+static InputResult parse_size(char **cursor, size_t *value) {
     skip_space(cursor);
     if (!isdigit((unsigned char)**cursor)) {
-        return -1;
+        return INPUT_INVALID;
     }
+
     errno = 0;
     char *end;
     uintmax_t parsed = strtoumax(*cursor, &end, 10);
-    if (errno != 0) {
-        return -1;
-    }
-    if (parsed == 0 || parsed > SIZE_MAX) {
-        return -1;
-    }
     if (*end != '\0' && !isspace((unsigned char)*end)) {
-        return -1;
+        return INPUT_INVALID;
     }
+    if (errno == ERANGE || parsed > SIZE_MAX) {
+        return INPUT_TOO_LARGE;
+    }
+    if (errno != 0 || parsed == 0) {
+        return INPUT_INVALID;
+    }
+
     *cursor = end;
     *value = (size_t)parsed;
-    return 0;
+    return INPUT_VALID;
+}
+
+static void print_size_error(InputResult result, const char *invalid_message) {
+    if (result == INPUT_TOO_LARGE) {
+        fprintf(stderr, "Число слишком большое. Максимальное значение: %zu.\n", SIZE_MAX);
+    } else {
+        fputs(invalid_message, stderr);
+    }
 }
 
 static int at_end(char *cursor) {
@@ -70,10 +87,14 @@ static int read_dimensions(Reader *reader, size_t *rows, size_t *cols) {
             return -1;
         }
         char *cursor = reader->line;
-        if (parse_size(&cursor, rows) == 0 && parse_size(&cursor, cols) == 0 && at_end(cursor)) {
+        InputResult result = parse_size(&cursor, rows);
+        if (result == INPUT_VALID) {
+            result = parse_size(&cursor, cols);
+        }
+        if (result == INPUT_VALID && at_end(cursor)) {
             return 0;
         }
-        fputs("Нужны два положительных целых числа через пробел.\n", stderr);
+        print_size_error(result, "Нужны два положительных целых числа через пробел.\n");
     } while (reader->interactive);
     return -1;
 }
@@ -84,38 +105,44 @@ static int read_size(Reader *reader, const char *prompt, size_t *value, int odd)
             return -1;
         }
         char *cursor = reader->line;
-        if (parse_size(&cursor, value) == 0 && at_end(cursor) && (!odd || *value % 2 == 1)) {
+        InputResult result = parse_size(&cursor, value);
+        if (result == INPUT_VALID && at_end(cursor) && (!odd || *value % 2 == 1)) {
             return 0;
         }
-        fputs(odd ? "Нужно положительное нечётное целое число.\n"
-                  : "Нужно положительное целое число.\n",
-              stderr);
+        print_size_error(result, odd ? "Нужно положительное нечётное целое число.\n"
+                                     : "Нужно положительное целое число.\n");
     } while (reader->interactive);
     return -1;
 }
 
-static int parse_row(char *cursor, double *values, size_t count) {
+static InputResult parse_row(char *cursor, double *values, size_t count) {
     for (size_t i = 0; i < count; ++i) {
         skip_space(&cursor);
         errno = 0;
         char *end;
         double value = strtod(cursor, &end);
+        if (errno == ERANGE && isinf(value)) {
+            return INPUT_TOO_LARGE;
+        }
         if (end == cursor || !isfinite(value)) {
-            return -1;
+            return INPUT_INVALID;
         }
         if (errno != 0 && errno != ERANGE) {
-            return -1;
+            return INPUT_INVALID;
         }
         if (errno == ERANGE && value == 0.0) {
-            return -1;
+            return INPUT_INVALID;
         }
         if (*end != '\0' && !isspace((unsigned char)*end)) {
-            return -1;
+            return INPUT_INVALID;
+        }
+        if ((long double)fabs(value) > (long double)ULLONG_MAX) {
+            return INPUT_TOO_LARGE;
         }
         values[i] = value;
         cursor = end;
     }
-    return at_end(cursor) ? 0 : -1;
+    return at_end(cursor) ? INPUT_VALID : INPUT_INVALID;
 }
 
 static int read_matrix(Reader *reader, Matrix *matrix, const char *name) {
@@ -132,13 +159,18 @@ static int read_matrix(Reader *reader, Matrix *matrix, const char *name) {
             if (read_line(reader, "") == -1) {
                 return -1;
             }
-            if (parse_row(reader->line, matrix->data + row * matrix->cols, matrix->cols) == 0) {
+            InputResult result = parse_row(
+                reader->line, matrix->data + row * matrix->cols, matrix->cols);
+            if (result == INPUT_VALID) {
                 break;
             }
-            fprintf(stderr,
-                    "Введите ровно %zu конечных чисел через пробел; "
-                    "дробная часть через точку. Повторите строку.\n",
-                    matrix->cols);
+            if (result == INPUT_TOO_LARGE) {
+                fprintf(stderr, "Модуль числа слишком большой. Максимум: %llu. "
+                        "Повторите строку.\n", ULLONG_MAX);
+            } else {
+                fprintf(stderr, "Введите ровно %zu конечных чисел через пробел; "
+                        "дробная часть через точку. Повторите строку.\n", matrix->cols);
+            }
             if (!reader->interactive) {
                 return -1;
             }
@@ -159,6 +191,7 @@ int parse_options(int argc, char **argv, size_t *threads) {
              "  значения каждой строки ядра\n"
              "  число проходов K\n"
              "Размеры и K положительные; числа конечные, дробная часть через точку.\n"
+             "Модуль элементов матрицы и ядра не больше ULLONG_MAX.\n"
              "За границами матрицы нули. Ядро переворачивается (свёртка).\n"
              "Можно перенаправить ввод: ./convolution --threads 4 < input.txt");
         return 1;
@@ -169,9 +202,12 @@ int parse_options(int argc, char **argv, size_t *threads) {
     }
     if (argc == 3 && strcmp(argv[1], "--threads") == 0) {
         char *cursor = argv[2];
-        if (parse_size(&cursor, threads) == 0 && at_end(cursor)) {
+        InputResult result = parse_size(&cursor, threads);
+        if (result == INPUT_VALID && at_end(cursor)) {
             return 0;
         }
+        print_size_error(result, "Неверный лимит потоков. Нужно положительное целое число.\n");
+        return -1;
     }
     fputs("Неверные параметры. Используйте ./convolution --help.\n", stderr);
     return -1;
