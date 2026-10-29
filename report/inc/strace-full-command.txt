@@ -1,0 +1,4 @@
+strace -f -tt -T -o /tmp/lab3-strace-full.txt \
+  ./convolution --threads 4 \
+  < report/inc/strace-full-input.txt \
+  > /tmp/lab3-result.txt 2> /tmp/lab3-diagnostic.txt

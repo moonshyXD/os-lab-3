@@ -1,0 +1,18 @@
+{
+  "rows": 5,
+  "cols": 65536,
+  "kernel": 31,
+  "passes": 2,
+  "thread_limit": 4,
+  "exit_code": 0,
+  "identity_output_exact": true,
+  "trace_lines": 481,
+  "trace_bytes": 44329,
+  "futex_wait_lines": 2,
+  "source_sha256": {
+    "console.c": "b3b33c5f4db94d5545287b8074a23a4216539004da83d1bec45a456c7963138a",
+    "filter.c": "74b9534f96cb852684bd6a83e9a24edf2ea72c30fd0f3faad8ae898ad2d68280",
+    "main.c": "7b8d1f9520a746d12e006803ed1a0e0b1d30b8a38df131b89bb82533b9881f07",
+    "matrix.c": "9dab341e3f38a0483546c0ca36ce0c9a606d68bf3e8a31cdda288bd69e0d52c0"
+  }
+}
